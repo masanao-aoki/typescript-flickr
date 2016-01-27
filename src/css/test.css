@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+$borderColor: #ccc;
+$avtiveColor: red;
+
+
+.tabNav {
+	margin: 0;
+	padding: 0;
+	.tabNav_item {
+		display: inline-block;
+		border: 1px solid $borderColor;
+
+		&.active {
+			background: $avtiveColor;
+		}
+	}
+}
+
+.tabContents {
+	.tabContents_body {
+		display: none;
+
+		&.active {
+			display: block;
+			border: 1px solid $borderColor;
+		}
+	}
+}

@@ -1,0 +1,15 @@
+{
+  "name": "websiteCreatePack",
+  "version": "0.0.0",
+  "homepage": "",
+  "authors": [],
+  "description": "",
+  "main": "",
+  "keywords": [
+    ""
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "google-code-prettify": ""
+  }
+}
