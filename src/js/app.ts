@@ -1,16 +1,17 @@
 /// <reference path="jquery.d.ts" />
 import * as $ from 'jquery';
 
+//定数
+const API_URL = 'https://api.flickr.com/services/rest/';
+const API_KEY = 'e2d99c3ff7885e30c624973bb84fdb09';
+const API_USER_KEY = '126218952@N06';
+const API_PULL_ITEM_MAX = 12;
+const API_INITIAL_PAGE = 0;
+const DEDAULT_URL = window.location.href.replace(window.location.search,"");
+
 //型定義
 interface FlickrApiSettings {
-    apiUri: string,
-    apiKey: string,
-    apiUsrKey: string,
-    apipullItemMax: number,
-    apiInitialPage: number,
-    defaultUri: string,
-    $photoListBody: JQuery,
-    index: number
+    $body: JQuery
 }
 
 // クラス内の関数は行動（アクション）で分ける
@@ -18,34 +19,26 @@ interface FlickrApiSettings {
 class FlickrApi {
 
     //初期処理
-    constructor(private settings: FlickrApiSettings) {
-        var aaa = 'aaaa';
-        console.log(this.settings.apipullItemMax);
-        this.pullPhoto();
-        console.log(aaa);
+    constructor() {
     }
 
-    //写真を引き出す
-    private pullPhoto = function () {
-        console.log("ok");
-        this.ApiRequest();
-    }
 
-    private ApiRequest = function () {
+    public ApiRequest = function () {
         console.log('リクエスト');
     }
 
 }
 
+class PullPhoto extends FlickrApi {
 
+    //初期処理
+    constructor(public settings: FlickrApiSettings) {
+        super();
+        console.log(settings.$body);
+    }
 
-var flickrApiRequest = new FlickrApi({
-apiUri: 'https://api.flickr.com/services/rest/',
-apiKey: 'e2d99c3ff7885e30c624973bb84fdb09',
-apiUsrKey: '126218952@N06',
-apipullItemMax: 12,
-apiInitialPage: 0,
-defaultUri: window.location.href.replace(window.location.search,""),
-$photoListBody: $('#FlickrPhotos'),
-index: 0
+}
+
+var pullPhoto = new PullPhoto({
+    $body: $('#FlickrPhotos')
 });
