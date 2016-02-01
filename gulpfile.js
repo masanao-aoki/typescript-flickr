@@ -128,7 +128,7 @@ gulp.task('svgfonts', function(){
 
 
 gulp.task('webpack', function(){
-	gulp.src(settings.watch.es6.dir+'app.ts')
+	gulp.src(settings.watch.es6.dir+'*.ts')
 	.pipe(plumber())
 	.pipe(named(function(file) {
 		return file.relative.replace(/\.[^\.]+$/, '');

@@ -1,5 +1,6 @@
-/// <reference path="jquery.d.ts" />
+/// <reference path="../jquery.d.ts" />
 import * as $ from 'jquery';
+import FlickrApi from './FlickrApi.ts';
 
 //定数
 const API_URL = 'https://api.flickr.com/services/rest/';
@@ -12,24 +13,6 @@ const DEDAULT_URL = window.location.href.replace(window.location.search,"");
 //型定義
 interface FlickrApiSettings {
     $body: JQuery
-}
-
-// クラス内の関数は行動（アクション）で分ける
-
-class FlickrApi {
-
-    //初期処理
-    constructor(private settings: FlickrApiSettings) {
-        //console.log(settings.$body);
-        this.ApiRequest();
-    }
-
-
-    public ApiRequest = function () {
-        //console.log('リクエスト');
-        return 'リクエスト';
-    }
-
 }
 
 class PullPhoto {
