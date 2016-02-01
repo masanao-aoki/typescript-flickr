@@ -19,7 +19,7 @@ interface FlickrApiSettings {
 class FlickrApi {
 
     //初期処理
-    constructor() {
+    constructor(private settings: FlickrApiSettings) {
     }
 
 
@@ -30,15 +30,17 @@ class FlickrApi {
 }
 
 class PullPhoto extends FlickrApi {
-
+    
     //初期処理
-    constructor(public settings: FlickrApiSettings) {
-        super();
-        console.log(settings.$body);
+    constructor() {
     }
 
 }
 
 var pullPhoto = new PullPhoto({
+    $body: $('#FlickrPhotos')
+});
+
+var flickrApi = new FlickrApi({
     $body: $('#FlickrPhotos')
 });
