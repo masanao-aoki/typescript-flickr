@@ -20,27 +20,29 @@ class FlickrApi {
 
     //初期処理
     constructor(private settings: FlickrApiSettings) {
+        //console.log(settings.$body);
+        this.ApiRequest();
     }
 
 
     public ApiRequest = function () {
-        console.log('リクエスト');
+        //console.log('リクエスト');
+        return 'リクエスト';
     }
 
 }
 
-class PullPhoto extends FlickrApi {
-    
+class PullPhoto {
+
     //初期処理
-    constructor() {
+    constructor(private settings: FlickrApiSettings) {
+        var flickrApi = new FlickrApi(settings);
+        console.log(flickrApi.ApiRequest());
     }
+
 
 }
 
 var pullPhoto = new PullPhoto({
-    $body: $('#FlickrPhotos')
-});
-
-var flickrApi = new FlickrApi({
     $body: $('#FlickrPhotos')
 });
