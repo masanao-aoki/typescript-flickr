@@ -1,18 +1,16 @@
 /// <reference path="../jquery.d.ts" />
 import * as $ from 'jquery';
-import FlickrApi from './FlickrApi.ts';
-
-//定数
-const API_URL = 'https://api.flickr.com/services/rest/';
-const API_KEY = 'e2d99c3ff7885e30c624973bb84fdb09';
-const API_USER_KEY = '126218952@N06';
-const API_PULL_ITEM_MAX = 12;
-const API_INITIAL_PAGE = 0;
-const DEDAULT_URL = window.location.href.replace(window.location.search,"");
+import * as Constant from './constant';
+import FlickrApi from './FlickrApi';
 
 //型定義
 interface FlickrApiSettings {
-    $body: JQuery
+    $body: JQuery,
+    method: string[],
+    api_key: string,
+    per_page: number,
+    page: number,
+    user_id: string
 }
 
 class PullPhoto {
@@ -20,12 +18,36 @@ class PullPhoto {
     //初期処理
     constructor(private settings: FlickrApiSettings) {
         var flickrApi = new FlickrApi(settings);
-        console.log(flickrApi.ApiRequest());
+        flickrApi.ApiRequest(this.pullPhoto);
     }
 
+    public pullPhoto = function (json){
+        var imgPath = [];
+        var titles = [];
+        for ( i=0; i < json.photos.photo.length; i ++ ) {
+            var farm = json.photos.photo[i].farm;
+            var server = json.photos.photo[i].server;
+            var secret = json.photos.photo[i].secret;
+            var titleName = json.photos.photo[i].title;
+            var id = json.photos.photo[i].id;
+            imgPath[i] = 'http://farm'+farm+'.staticflickr.com/'+server+'/'+id+'_'+secret+'_s.jpg';
+            titles[i] = titleName;
+        }
+
+
+        for(var i = 0;i < imgPath.length;i++) {
+            $(settings.$body).append('<li><a title="'+ titles[i] +'" href="' + imgPath[i].replace("_s","") + '"><img src="' + imgPath[i] + '"></a></li>');
+        }
+
+    }
 
 }
 
 var pullPhoto = new PullPhoto({
-    $body: $('#FlickrPhotos')
+    $body: $('#FlickrPhotos'),
+    method: ['photos','search'],
+    api_key: Constant.API_KEY,
+    per_page: Constant.API_PULL_ITEM_MAX,
+    page: Constant.API_INITIAL_PAGE,
+    user_id: Constant.API_USER_KEY,
 });
